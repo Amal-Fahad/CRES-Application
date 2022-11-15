@@ -69,7 +69,7 @@ const DataList = ({ LogOut }) => {
       inputData.email == "" ||
       inputData.address == ""
     ) {
-      alert("please fill the all datas");
+      alert("please fill all datas");
     } else {
       dispatch(ADD_DATA(inputData))
     }

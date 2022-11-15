@@ -96,8 +96,8 @@ form .form-inner input[type="submit"]{
 
  /* datalist */
 .datalist{
-  background-color: #555;
-  padding-top: 25px;
+  background-color: rgb(228, 216, 216);
+  padding:50px 20px;
 }
 
 /* DataList input field */
