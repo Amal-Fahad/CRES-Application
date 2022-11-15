@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/CRES-Application/static/css/main.b8f8d252.css",
-    "main.js": "/CRES-Application/static/js/main.125b9d8e.js",
+    "main.js": "/CRES-Application/static/js/main.a4032245.js",
     "index.html": "/CRES-Application/index.html",
     "main.b8f8d252.css.map": "/CRES-Application/static/css/main.b8f8d252.css.map",
-    "main.125b9d8e.js.map": "/CRES-Application/static/js/main.125b9d8e.js.map"
+    "main.a4032245.js.map": "/CRES-Application/static/js/main.a4032245.js.map"
   },
   "entrypoints": [
     "static/css/main.b8f8d252.css",
-    "static/js/main.125b9d8e.js"
+    "static/js/main.a4032245.js"
   ]
 }
