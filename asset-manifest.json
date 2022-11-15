@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/CRES-Application/static/css/main.27b7ea09.css",
+    "main.js": "/CRES-Application/static/js/main.125b9d8e.js",
+    "index.html": "/CRES-Application/index.html",
+    "main.27b7ea09.css.map": "/CRES-Application/static/css/main.27b7ea09.css.map",
+    "main.125b9d8e.js.map": "/CRES-Application/static/js/main.125b9d8e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.27b7ea09.css",
+    "static/js/main.125b9d8e.js"
+  ]
+}
