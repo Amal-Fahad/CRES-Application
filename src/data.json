@@ -1,0 +1,30 @@
+[
+  {
+    "name": "jhon",
+    "age": 22,
+    "place": "kochi",
+    "email":"abc@gmail.com",
+    "address":"###############"
+  },
+  {
+    "name": "roy",
+    "age": 20,
+    "place": "chennai",
+    "email":"abc@gmail.com",
+    "address":"###############"
+  },
+  {
+    "name": "rocky",
+    "age": 25,
+    "place": "bangalore",
+    "email":"abc@gmail.com",
+    "address":"###############"
+  },
+  {
+    "name": "jacob",
+    "age": 27,
+    "place": "kolkata",
+    "email":"abc@gmail.com",
+    "address":"###############"
+  }
+]
