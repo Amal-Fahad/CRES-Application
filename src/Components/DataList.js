@@ -1,47 +1,12 @@
-import React from "react";
 import { useState } from "react";
-import { useRef } from "react";
-
-import BootstrapTable from "react-bootstrap-table-next";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "react-bootstrap-table-next/dist/react-bootstrap-table2.css";
-import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
-import "react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css";
+import { nanoid } from "nanoid";
 
 import { useSelector, useDispatch } from "react-redux";
-import { ADD_DATA } from "../Redux/DetailsSlice";
+import { ADD_DATA, DELETE_DATA } from "../Redux/DetailsSlice";
 
 const DataList = ({ LogOut }) => {
-  const { userData } = useSelector((state) => state.UserDetails);
-
+  const { data } = useSelector((state) => state.UserDetails);
   const dispatch = useDispatch();
-
-  const columns = [
-    {
-      dataField: "name",
-      text: "Name",
-      sort: true,
-      filter: textFilter(),
-    },
-    {
-      dataField: "age",
-      text: "Age",
-      sort: true,
-      filter: textFilter(),
-    },
-    {
-      dataField: "place",
-      text: "Place",
-    },
-    {
-      dataField: "email",
-      text: "Email",
-    },
-    {
-      dataField: "address",
-      text: "Address",
-    },
-  ];
 
   const [inputData, setInputData] = useState({
     name: "",
@@ -51,52 +16,78 @@ const DataList = ({ LogOut }) => {
     address: "",
   });
 
-  const nameRef = useRef()
-  const ageRef = useRef()
-  const placeRef = useRef()
-  const emailRef = useRef()
-  const addressRef = useRef()
-
-  const changeHandle = (e) => {
-    setInputData({ ...inputData, [e.target.name]: e.target.value });
+  const handleAddFormChange = (e) => {
+    e.preventDefault();
+    const fieldName = e.target.getAttribute("name");
+    const fieldValue = e.target.value;
+    const newFormData = { ...inputData };
+    newFormData[fieldName] = fieldValue;
+    setInputData(newFormData);
   };
 
-  const clickHandler = () => {
-    if (
-      inputData.name == "" ||
-      inputData.age == "" ||
-      inputData.place == "" ||
-      inputData.email == "" ||
-      inputData.address == ""
-    ) {
-      alert("please fill all datas");
-    } else {
-      dispatch(ADD_DATA(inputData))
-    }
+  const handleAddFormSubmit = (e) => {
+    e.preventDefault();
+    const newData = {
+      id: nanoid(),
+      name: inputData.name,
+      age: inputData.age,
+      place: inputData.place,
+      email: inputData.email,
+      address: inputData.address,
+    };
+    dispatch(ADD_DATA(newData));
+  };
+
+  const handleDeleteClick = (_id) => {
+    const newData = [...data];
+    const index = data.findIndex((item) => item.id === _id);
+    newData.splice(index, 1);
+    dispatch(DELETE_DATA(newData));
   };
 
   return (
     <div className="datalist">
-      <BootstrapTable
-        bootstrap4
-        keyField="index"
-        columns={columns}
-        data={userData}
-        filter={filterFactory()}
-      />
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Place</th>
+            <th>Email</th>
+            <th>Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((item, index) => (
+            <tr key={index}>
+              <td>{item.name}</td>
+              <td>{item.age}</td>
+              <td>{item.place}</td>
+              <td>{item.email}</td>
+              <td>{item.address}</td>
+              <button
+                className="deletebtn"
+                onClick={() => handleDeleteClick(item.id)}
+              >
+                delete
+              </button>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
-      <div className="inputField">
+      <h2>Add a Details</h2>
+      <form onSubmit={handleAddFormSubmit} className="formSubmit">
         <input
           className="addField"
           placeholder="Enter your name"
           type="text"
           autoComplete="on"
           name="name"
-          value={inputData.name}
-          onChange={changeHandle}
-          ref={nameRef}
-          required
+          onChange={handleAddFormChange}
+          required="required"
         />
+
         <br />
         <br />
         <input
@@ -104,11 +95,10 @@ const DataList = ({ LogOut }) => {
           placeholder="Enter your age"
           type="number"
           name="age"
-          value={inputData.age}
-          onChange={changeHandle}
-          ref={ageRef}
-          required
+          onChange={handleAddFormChange}
+          required="required"
         />
+
         <br />
         <br />
         <input
@@ -116,10 +106,8 @@ const DataList = ({ LogOut }) => {
           placeholder="Enter your place"
           type="text"
           name="place"
-          value={inputData.place}
-          onChange={changeHandle}
-          ref={placeRef}
-          required
+          onChange={handleAddFormChange}
+          required="required"
         />
         <br />
         <br />
@@ -128,10 +116,8 @@ const DataList = ({ LogOut }) => {
           placeholder="Enter your email"
           type="text"
           name="email"
-          value={inputData.email}
-          onChange={changeHandle}
-          ref={emailRef}
-          required
+          onChange={handleAddFormChange}
+          required="required"
         />
         <br />
         <br />
@@ -140,18 +126,13 @@ const DataList = ({ LogOut }) => {
           placeholder="Enter your address"
           type="text"
           name="address"
-          value={inputData.address}
-          onChange={changeHandle}
-          ref={addressRef}
-          required
+          onChange={handleAddFormChange}
+          required="required"
         />
         <br />
         <br />
-        <button onClick={clickHandler} className="addbtn">
-          add
-        </button>
-      </div>
-
+        <button className="addbtn">Add</button>
+      </form>
       <button className="logOut" onClick={LogOut}>
         LogOut
       </button>

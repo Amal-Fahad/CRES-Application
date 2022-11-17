@@ -10,7 +10,7 @@ const LoginForm = ({ login, error }) => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} className="form">
       <div className="form-inner">
         <h2>Login</h2>
         {error !== "" ? <div className="error">{error}</div> : ""}
