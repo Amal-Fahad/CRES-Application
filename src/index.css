@@ -101,6 +101,13 @@ input,button{
   gap: 10px;
   padding: 1rem;
   font-variant: small-caps;
+  width: 1000px;
+}
+
+.form-control{
+  border: 2px solid rgb(117, 201, 250);
+  padding: 2px 20px;
+  float: left;
 }
 
 table {

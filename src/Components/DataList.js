@@ -4,9 +4,27 @@ import { nanoid } from "nanoid";
 import { useSelector, useDispatch } from "react-redux";
 import { ADD_DATA, DELETE_DATA } from "../Redux/DetailsSlice";
 
+
 const DataList = ({ LogOut }) => {
   const { data } = useSelector((state) => state.UserDetails);
   const dispatch = useDispatch();
+
+  const [value,setValue] = useState("")
+  const [dataSource,setDataSource] = useState(data);
+  const [tableFilter,setTableFilter] = useState([])
+
+  const filterData = (e)=>{
+    if(e.target.value !=""){
+      setValue(e.target.value);
+     const filterTable = dataSource.filter(o=>Object.keys(o).some(k=>
+      String(o[k]).toLowerCase().includes(e.target.value.toLowerCase())
+      ));
+      setTableFilter([...filterTable])
+     }else{
+      setValue(e.target.value);
+      setDataSource([...dataSource])
+     }
+  }
 
   const [inputData, setInputData] = useState({
     name: "",
@@ -47,6 +65,9 @@ const DataList = ({ LogOut }) => {
 
   return (
     <div className="datalist">
+      <div>
+        <input type="text" className="form-control" placeholder="Search" area-aria-label="username" area-aria-describedby="basic-addon1" value={value} onChange={filterData}/>
+      </div>
       <table>
         <thead>
           <tr>
@@ -58,8 +79,10 @@ const DataList = ({ LogOut }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((item, index) => (
-            <tr key={index}>
+          {
+            value.length >0? tableFilter.map((item,index)=>{
+              return (
+                <tr key={index}>
               <td>{item.name}</td>
               <td>{item.age}</td>
               <td>{item.place}</td>
@@ -72,7 +95,26 @@ const DataList = ({ LogOut }) => {
                 delete
               </button>
             </tr>
-          ))}
+              )
+            }):
+            dataSource.map((item,index)=>{
+              return(
+                <tr key={index}>
+              <td>{item.name}</td>
+              <td>{item.age}</td>
+              <td>{item.place}</td>
+              <td>{item.email}</td>
+              <td>{item.address}</td>
+              <button
+                className="deletebtn"
+                onClick={() => handleDeleteClick(item.id)}
+              >
+                delete
+              </button>
+            </tr>
+              )
+            })
+          }
         </tbody>
       </table>
 
